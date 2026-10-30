@@ -1,0 +1,512 @@
+/* ====================================================================
+   CAMPUS FOOD - Mobile-First Responsive Design System
+   Breakpoints: 1024px (Tablet/Laptop), 768px (Tablet), 640px (Mobile), 480px/360px (Small Mobile)
+   ==================================================================== */
+
+/* Global Anti-Overflow & Fluid Media Utilities */
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Force long words, tokens, emails, hashes to wrap */
+.order-id-code, .order-id-label, .break-anywhere {
+  word-break: break-all !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* Form 2-column layout that safely stacks on mobile */
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Profile grid layout */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ====================================================================
+   TABLET BREAKPOINT (max-width: 1024px)
+   ==================================================================== */
+@media (max-width: 1024px) {
+  .hero-section {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: center;
+    padding: 1.5rem 0 3rem;
+  }
+  .hero-description, .hero-search-box {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-stats {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-visual {
+    max-width: 580px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .cart-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .cart-summary-card {
+    position: static;
+    top: auto;
+  }
+  .how-it-works-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .profile-grid {
+    grid-template-columns: 1fr 1.6fr;
+    gap: 1.5rem;
+  }
+}
+
+/* ====================================================================
+   MOBILE / TABLET PORTRAIT BREAKPOINT (max-width: 768px)
+   ==================================================================== */
+@media (max-width: 768px) {
+  .top-notice-bar {
+    display: none;
+  }
+  
+  .navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+  }
+  
+  .nav-container {
+    padding: 0.75rem 0.85rem;
+    gap: 0.5rem;
+  }
+  
+  .brand-logo {
+    gap: 0.5rem;
+  }
+  .brand-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.15rem;
+  }
+  .brand-title {
+    font-size: 1.05rem;
+  }
+  .brand-sub {
+    display: none;
+  }
+  
+  .nav-actions {
+    gap: 0.5rem;
+  }
+  .cart-nav-btn {
+    width: 38px;
+    height: 38px;
+  }
+  .mobile-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+  
+  /* Mobile Navigation Drawer */
+  .nav-links {
+    position: fixed;
+    top: 58px;
+    left: 0;
+    right: 0;
+    background: var(--bg-card);
+    border-bottom: 2px solid var(--border-accent);
+    flex-direction: column;
+    padding: 1.25rem 1rem;
+    gap: 0.5rem;
+    box-shadow: var(--shadow-lg);
+    display: none;
+    z-index: 99;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+  .nav-links.open {
+    display: flex;
+  }
+  .nav-item a {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  /* Compact Navbar user display on mobile */
+  .nav-desktop-only, .user-name-label, .role-badge-chip {
+    display: none !important;
+  }
+  .user-menu-btn {
+    padding: 2px 6px 2px 2px;
+  }
+  .user-avatar-small {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+
+  /* Main wrapper padding */
+  .main-wrapper {
+    padding: 1.25rem 1rem;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .hero-title {
+    font-size: 2.1rem;
+    line-height: 1.2;
+  }
+  .hero-description {
+    font-size: 0.98rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero-stats {
+    gap: 1.25rem 2rem;
+  }
+  .hero-stat-num {
+    font-size: 1.4rem;
+  }
+  
+  /* Keep Hero floating badges inside the container */
+  .floating-bottom-left {
+    bottom: 10px;
+    left: 10px;
+    max-width: calc(100% - 20px);
+  }
+  .floating-top-right {
+    top: 10px;
+    right: 10px;
+    max-width: calc(100% - 20px);
+  }
+  .floating-glass-card {
+    padding: 0.55rem 0.85rem;
+    font-size: 0.78rem;
+    gap: 0.6rem;
+    backdrop-filter: blur(8px);
+  }
+  .floating-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 0.95rem;
+  }
+  
+  .special-offer-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem 1.15rem;
+    gap: 1.25rem;
+    border-radius: var(--radius-lg);
+  }
+  .special-offer-banner a.btn-primary {
+    width: 100%;
+    text-align: center;
+  }
+  .offer-content h3 {
+    font-size: 1.4rem;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .section-title {
+    font-size: 1.65rem;
+  }
+  
+  .how-it-works-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Bulletproof 2x2 responsive cart row */
+  .cart-item-row {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    grid-template-areas:
+      "img info"
+      "controls total";
+    gap: 0.75rem 0.85rem;
+    align-items: center;
+    padding: 1rem 0;
+  }
+  .cart-item-img {
+    grid-area: img;
+    width: 64px;
+    height: 64px;
+  }
+  .cart-item-info {
+    grid-area: info;
+    min-width: 0;
+  }
+  .cart-item-info h4 {
+    font-size: 0.95rem;
+    word-break: break-word;
+  }
+  .qty-controls {
+    grid-area: controls;
+    justify-self: start;
+  }
+  .cart-item-total {
+    grid-area: total;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    min-width: 0;
+    text-align: right;
+  }
+  
+  /* Tracking Stepper on Mobile */
+  .order-tracking-card {
+    padding: 1.5rem 1rem;
+  }
+  .tracking-stepper {
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding-left: 1.75rem;
+    margin: 1.5rem 0 2rem;
+    position: relative;
+  }
+  .tracking-stepper::before {
+    top: 15px;
+    bottom: 15px;
+    left: 17px;
+    width: 3px;
+    height: auto;
+  }
+  .tracking-stepper-progress {
+    top: 15px;
+    left: 17px;
+    width: 3px;
+    transition: height 0.5s ease;
+  }
+  .step-node {
+    flex-direction: row;
+    gap: 1rem;
+    text-align: left;
+    width: 100%;
+  }
+  .step-bubble {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+  .step-node-label {
+    font-size: 0.85rem;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0.85rem;
+    text-align: center;
+  }
+
+  /* Form and Profile grids stack vertically on mobile */
+  .form-row-2col, .profile-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem;
+  }
+}
+
+/* ====================================================================
+   STANDARD MOBILE BREAKPOINT (max-width: 640px)
+   ==================================================================== */
+@media (max-width: 640px) {
+  .menu-filter-bar {
+    padding: 0.85rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  .menu-search-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+  .menu-filter-bar select {
+    width: 100% !important;
+  }
+  .category-grid {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+}
+
+/* ====================================================================
+   COMPACT SMARTPHONE BREAKPOINT (max-width: 480px)
+   ==================================================================== */
+@media (max-width: 480px) {
+  .main-wrapper {
+    padding: 1rem 0.75rem;
+  }
+  .hero-title {
+    font-size: 1.75rem;
+    letter-spacing: -0.02em;
+  }
+  .hero-badge {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.75rem;
+  }
+  .hero-search-box {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    width: 100%;
+  }
+  .hero-search-box input {
+    width: 100%;
+    padding: 0.5rem 0.25rem;
+    font-size: 0.9rem;
+  }
+  .hero-search-box .btn-primary {
+    width: 100%;
+    padding: 0.65rem;
+  }
+  
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .product-image-wrap {
+    height: 165px;
+  }
+  .product-content {
+    padding: 1rem;
+  }
+  .product-footer {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.45rem;
+  }
+  .category-card {
+    padding: 0.65rem 0.35rem;
+    gap: 0.4rem;
+  }
+  .category-img-wrap {
+    width: 46px;
+    height: 46px;
+  }
+  .category-card-name {
+    font-size: 0.72rem;
+    word-break: break-word;
+  }
+  
+  .auth-page-container {
+    padding: 1.35rem 0.95rem;
+    margin: 1rem auto;
+    border-radius: var(--radius-md);
+  }
+  .auth-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .cart-items-card, .cart-summary-card {
+    padding: 1rem 0.75rem;
+  }
+
+  .modal-box {
+    max-width: calc(100vw - 20px) !important;
+    padding: 1.25rem 0.85rem !important;
+    margin: 10px auto !important;
+  }
+
+  #toast-container {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: auto;
+  }
+  .toast {
+    min-width: 0;
+    width: 100%;
+    font-size: 0.82rem;
+    padding: 0.7rem 0.9rem;
+  }
+
+  #supabase-status-trigger {
+    bottom: 10px;
+    left: 10px;
+    font-size: 0.68rem;
+    padding: 4px 10px;
+    max-width: calc(100vw - 20px);
+  }
+}
+
+/* ====================================================================
+   EXTRA NARROW PHONE BREAKPOINT (max-width: 360px)
+   ==================================================================== */
+@media (max-width: 360px) {
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+  }
+  .hero-title {
+    font-size: 1.55rem;
+  }
+  .nav-container {
+    padding: 0.65rem 0.6rem;
+  }
+  .brand-title {
+    font-size: 0.95rem;
+  }
+  .cart-item-row {
+    grid-template-columns: 50px 1fr;
+  }
+  .cart-item-img {
+    width: 50px;
+    height: 50px;
+  }
+}

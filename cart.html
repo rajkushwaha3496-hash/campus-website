@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopping Cart – CAMPUS FOOD | College Canteen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-notice-bar">
+    <div>
+      🎓 <span class="notice-highlight">AKTU B.Tech Web Development Project</span> • College Canteen Counter Window 2
+    </div>
+    <div style="display: flex; gap: 1.25rem;">
+      <span>🕒 Canteen Hours: <strong>8:30 AM – 7:30 PM</strong></span>
+      <span>⚡ Express Token Pickup System</span>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/index.html" class="brand-logo">
+        <div class="brand-icon">🍔</div>
+        <div class="brand-text">
+          <div class="brand-title">CAMPUS <span>FOOD</span></div>
+          <div class="brand-sub">AKTU Canteen Hub</div>
+        </div>
+      </a>
+
+      <ul class="nav-links" id="nav-links-menu">
+        <li class="nav-item"><a href="/index.html">🏠 Home</a></li>
+        <li class="nav-item"><a href="/menu.html">📜 Canteen Menu</a></li>
+        <li class="nav-item"><a href="/tracking.html">📍 Track Order</a></li>
+        <li class="nav-item"><a href="/my-orders.html">📋 My Orders</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="/cart.html" class="cart-nav-btn" style="border-color: var(--accent-orange); color: var(--accent-orange);" title="View Shopping Cart">
+          🛒
+          <span class="cart-badge" id="nav-cart-badge" style="display: none;">0</span>
+        </a>
+        <div id="nav-auth-area"></div>
+        <button class="mobile-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-wrapper">
+    <div style="margin-bottom: 2rem;">
+      <div class="section-tag">Review Your Items</div>
+      <h1 style="font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em;">Canteen Shopping Cart</h1>
+    </div>
+
+    <div id="cart-content-wrapper">
+      <div class="cart-layout">
+        <!-- Items List -->
+        <div>
+          <div class="cart-items-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; padding-bottom: 0.85rem; border-bottom: 1px solid var(--border-subtle);">
+              <h3 style="font-size: 1.15rem; font-weight: 700;">Selected Canteen Dishes (<span id="cart-total-count">0</span>)</h3>
+              <button id="btn-clear-cart" class="btn-secondary" style="font-size: 0.8rem; padding: 0.35rem 0.75rem; color: var(--accent-red);">
+                🗑️ Clear All
+              </button>
+            </div>
+
+            <div id="cart-items-tbody">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Bill Summary & Coupon -->
+        <div>
+          <div class="cart-summary-card">
+            <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 1.25rem; color: var(--text-primary);">Order Summary</h3>
+
+            <!-- Student Coupon Box -->
+            <div style="margin-bottom: 1.5rem; background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 0.85rem;">
+              <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.4rem;">
+                AKTU Student Coupon Code
+              </label>
+              <div style="display: flex; gap: 0.5rem;">
+                <input type="text" id="coupon-input" class="form-control" placeholder="Try AKTU10 or CAMPUSFOOD" style="text-transform: uppercase; font-family: monospace;" />
+                <button id="apply-coupon-btn" class="btn-primary" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Apply</button>
+              </div>
+              <div id="coupon-message" style="margin-top: 0.5rem; font-size: 0.78rem;"></div>
+            </div>
+
+            <div class="summary-row">
+              <span>Items Subtotal</span>
+              <span id="cart-subtotal" style="font-weight: 700;">₹0.00</span>
+            </div>
+
+            <div class="summary-row">
+              <span>Canteen Packaging & Service</span>
+              <span id="cart-packaging" style="font-weight: 700;">₹5.00</span>
+            </div>
+
+            <div class="summary-row" id="cart-discount-row" style="display: none; color: var(--accent-green);">
+              <span>Student Discount (<span id="discount-label"></span>)</span>
+              <span id="cart-discount" style="font-weight: 700;">-₹0.00</span>
+            </div>
+
+            <div class="summary-row total-row">
+              <span>Total Bill</span>
+              <span class="total-amount" id="cart-grand-total">₹0.00</span>
+            </div>
+
+            <p style="font-size: 0.76rem; color: var(--text-muted); margin: 1rem 0 1.5rem; line-height: 1.4;">
+              * Inclusive of all university canteen taxes and packaging. Pay via Cash at desk or UPI.
+            </p>
+
+            <a href="/checkout.html" id="proceed-checkout-btn" class="btn-primary" style="width: 100%; padding: 0.85rem; font-size: 1rem; text-align: center;">
+              Proceed to Canteen Checkout →
+            </a>
+
+            <a href="/menu.html" class="btn-secondary" style="width: 100%; margin-top: 0.75rem; padding: 0.65rem; font-size: 0.88rem; text-align: center;">
+              + Add More Dishes
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="brand-logo" style="margin-bottom: 1rem;">
+          <div class="brand-icon">🍔</div>
+          <div class="brand-text">
+            <div class="brand-title">CAMPUS <span>FOOD</span></div>
+            <div class="brand-sub">AKTU Canteen Hub</div>
+          </div>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.6;">
+          Developed as a B.Tech 3rd Semester AKTU Web Development Project.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Links</h4>
+        <ul class="footer-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/menu.html">Menu</a></li>
+          <li><a href="/checkout.html">Checkout</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 CAMPUS FOOD. All Rights Reserved.</div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.tsx"></script>
+  <script type="module" src="/js/app.js"></script>
+  <script type="module">
+    import { 
+      getCart, 
+      updateQuantity, 
+      removeFromCart, 
+      clearCart, 
+      calculateCartTotals, 
+      applyCoupon, 
+      removeCoupon, 
+      getAppliedCoupon,
+      showToast 
+    } from '/js/cart.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCart();
+      setupEvents();
+    });
+
+    function renderCart() {
+      const cart = getCart();
+      const container = document.getElementById('cart-items-tbody');
+      const countEl = document.getElementById('cart-total-count');
+      const wrapper = document.getElementById('cart-content-wrapper');
+
+      if (cart.length === 0) {
+        if (wrapper) {
+          wrapper.innerHTML = `
+            <div style="text-align: center; padding: 4.5rem 1.5rem; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px dashed var(--border-light); max-width: 600px; margin: 2rem auto;">
+              <span style="font-size: 4rem;">🛒</span>
+              <h2 style="font-size: 1.6rem; margin-top: 1rem; font-weight: 800;">Your Food Cart is Empty</h2>
+              <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0.75rem auto 1.75rem; max-width: 420px;">
+                You haven't added any snacks, meals, or drinks from the college canteen yet.
+              </p>
+              <a href="/menu.html" class="btn-primary" style="padding: 0.75rem 1.6rem;">Browse Canteen Menu</a>
+            </div>
+          `;
+        }
+        return;
+      }
+
+      const totals = calculateCartTotals();
+      if (countEl) countEl.textContent = totals.itemCount;
+
+      if (container) {
+        container.innerHTML = cart.map(item => `
+          <div class="cart-item-row">
+            <div class="cart-item-img">
+              <img src="${item.image_url}" alt="${item.name}">
+            </div>
+            <div class="cart-item-info">
+              <h4>${item.name}</h4>
+              <div class="cart-item-price">₹${Number(item.price).toFixed(2)}</div>
+            </div>
+            <div class="qty-controls">
+              <button class="qty-btn btn-dec" data-id="${item.product_id}">-</button>
+              <span class="qty-number">${item.quantity}</span>
+              <button class="qty-btn btn-inc" data-id="${item.product_id}">+</button>
+            </div>
+            <div class="cart-item-total">
+              <div>₹${(item.price * item.quantity).toFixed(2)}</div>
+              <button class="cart-remove-btn btn-remove" data-id="${item.product_id}" title="Remove item">&times;</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Render summary
+      document.getElementById('cart-subtotal').textContent = `₹${totals.subtotal.toFixed(2)}`;
+      document.getElementById('cart-packaging').textContent = `₹${totals.packagingFee.toFixed(2)}`;
+      
+      const discountRow = document.getElementById('cart-discount-row');
+      const discountEl = document.getElementById('cart-discount');
+      const discountLabel = document.getElementById('discount-label');
+
+      if (totals.discount > 0) {
+        discountRow.style.display = 'flex';
+        discountLabel.textContent = totals.coupon.label;
+        discountEl.textContent = `-₹${totals.discount.toFixed(2)}`;
+      } else {
+        discountRow.style.display = 'none';
+      }
+
+      document.getElementById('cart-grand-total').textContent = `₹${totals.total.toFixed(2)}`;
+
+      // Reattach row listeners
+      container?.querySelectorAll('.btn-inc').forEach(btn => {
+        btn.addEventListener('click', () => {
+          updateQuantity(btn.dataset.id, 1);
+          renderCart();
+        });
+      });
+      container?.querySelectorAll('.btn-dec').forEach(btn => {
+        btn.addEventListener('click', () => {
+          updateQuantity(btn.dataset.id, -1);
+          renderCart();
+        });
+      });
+      container?.querySelectorAll('.btn-remove').forEach(btn => {
+        btn.addEventListener('click', () => {
+          removeFromCart(btn.dataset.id);
+          renderCart();
+        });
+      });
+    }
+
+    function setupEvents() {
+      document.getElementById('btn-clear-cart')?.addEventListener('click', () => {
+        if (confirm('Clear all items from your cart?')) {
+          clearCart();
+          renderCart();
+        }
+      });
+
+      document.getElementById('apply-coupon-btn')?.addEventListener('click', () => {
+        const inp = document.getElementById('coupon-input');
+        const msg = document.getElementById('coupon-message');
+        if (!inp || !inp.value.trim()) return;
+
+        const res = applyCoupon(inp.value.trim());
+        if (res.success) {
+          msg.style.color = 'var(--accent-green)';
+          msg.textContent = `Applied: ${res.coupon.label}`;
+          renderCart();
+        } else {
+          msg.style.color = 'var(--accent-red)';
+          msg.textContent = res.message;
+        }
+      });
+    }
+  </script>
+</body>
+</html>

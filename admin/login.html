@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Portal Login – CAMPUS FOOD | Canteen Staff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #050811;">
+
+  <div class="auth-page-container" style="max-width: 440px; width: 100%; margin: 1.5rem; border-color: rgba(249, 115, 22, 0.4);">
+    <div class="auth-header">
+      <div class="brand-icon" style="margin: 0 auto 1rem; width: 52px; height: 52px; font-size: 1.5rem; background: linear-gradient(135deg, #ef4444, #ea580c);">
+        🔐
+      </div>
+      <h2>Canteen Admin Portal</h2>
+      <p>Authorized access for AKTU canteen managers, kitchen chefs, and administrators only.</p>
+    </div>
+
+    <!-- 1-Click Demo Admin Credentials -->
+    <div class="demo-credentials-box">
+      <div class="demo-credentials-title">
+        <span>⚡ Evaluator Admin Demo:</span>
+        <button type="button" id="btn-fill-admin-demo" class="demo-fill-btn">1-Click Fill</button>
+      </div>
+      <div>Email: <strong style="color: var(--text-primary);">admin@campusfood.aktu.ac.in</strong></div>
+      <div>Password: <strong style="color: var(--text-primary);">Admin@123</strong></div>
+    </div>
+
+    <form id="admin-login-form">
+      <div class="form-group">
+        <label class="form-label" for="admin-email">Admin Email Address</label>
+        <input type="email" id="admin-email" class="form-control" placeholder="admin@campusfood.aktu.ac.in" required />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="admin-password">Secure Password</label>
+        <input type="password" id="admin-password" class="form-control" placeholder="••••••••" required />
+      </div>
+
+      <button type="submit" id="admin-login-submit" class="btn-primary" style="width: 100%; margin-top: 1.25rem; padding: 0.8rem;">
+        Authenticate & Enter Dashboard
+      </button>
+    </form>
+
+    <div style="text-align: center; margin-top: 1.5rem; font-size: 0.84rem;">
+      <a href="/index.html" style="color: var(--text-muted);">&larr; Return to Student Food Ordering</a>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.tsx"></script>
+  <script type="module">
+    import { loginUser, DEMO_CREDENTIALS, isAdmin } from '/js/auth.js';
+    import { showToast } from '/js/cart.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1-Click Fill
+      document.getElementById('btn-fill-admin-demo')?.addEventListener('click', () => {
+        document.getElementById('admin-email').value = DEMO_CREDENTIALS.admin.email;
+        document.getElementById('admin-password').value = DEMO_CREDENTIALS.admin.password;
+        showToast('Admin credentials filled!', 'info');
+      });
+
+      document.getElementById('admin-login-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('admin-email').value;
+        const password = document.getElementById('admin-password').value;
+        const btn = document.getElementById('admin-login-submit');
+
+        btn.disabled = true;
+        btn.textContent = 'Verifying credentials...';
+
+        const res = await loginUser(email, password);
+        if (res.success) {
+          if (res.user.role === 'admin') {
+            showToast('Access granted! Entering Canteen Dashboard...', 'success');
+            setTimeout(() => {
+              window.location.href = '/admin/dashboard.html';
+            }, 600);
+          } else {
+            showToast('Access Denied: You do not have canteen administrator privileges.', 'error');
+            btn.disabled = false;
+            btn.textContent = 'Authenticate & Enter Dashboard';
+          }
+        } else {
+          showToast(res.message, 'error');
+          btn.disabled = false;
+          btn.textContent = 'Authenticate & Enter Dashboard';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

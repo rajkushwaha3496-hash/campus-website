@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix CAMPUS FOOD - College Canteen Ordering System",
+  "description": "Smart College Canteen Food Ordering System for AKTU B.Tech Web Development project with student menu browsing, cart, checkout, order tracking, and admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

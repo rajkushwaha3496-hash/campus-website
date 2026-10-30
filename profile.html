@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Profile – CAMPUS FOOD | College Canteen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-notice-bar">
+    <div>🎓 <span class="notice-highlight">AKTU B.Tech Web Development Project</span> • College Canteen System</div>
+    <div>Student Profile & Preferences</div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/index.html" class="brand-logo">
+        <div class="brand-icon">🍔</div>
+        <div class="brand-text">
+          <div class="brand-title">CAMPUS <span>FOOD</span></div>
+          <div class="brand-sub">AKTU Canteen Hub</div>
+        </div>
+      </a>
+
+      <ul class="nav-links" id="nav-links-menu">
+        <li class="nav-item"><a href="/index.html">🏠 Home</a></li>
+        <li class="nav-item"><a href="/menu.html">📜 Canteen Menu</a></li>
+        <li class="nav-item"><a href="/tracking.html">📍 Track Order</a></li>
+        <li class="nav-item"><a href="/my-orders.html">📋 My Orders</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="/cart.html" class="cart-nav-btn" title="View Cart">
+          🛒
+          <span class="cart-badge" id="nav-cart-badge" style="display: none;">0</span>
+        </a>
+        <div id="nav-auth-area"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-wrapper" style="max-width: 800px;">
+    <div style="margin-bottom: 2rem;">
+      <div class="section-tag">Account Details</div>
+      <h1 style="font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em;">Student Profile</h1>
+    </div>
+
+    <div class="profile-grid">
+      <!-- Left: Avatar Card -->
+      <div class="cart-items-card" style="text-align: center; padding: 2rem 1.5rem;">
+        <div style="width: 80px; height: 80px; border-radius: var(--radius-full); background: linear-gradient(135deg, var(--accent-orange), #ea580c); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 800; color: white; margin: 0 auto 1.25rem; box-shadow: var(--shadow-orange);" id="profile-avatar">
+          S
+        </div>
+        <h3 id="profile-display-name" style="font-size: 1.25rem; font-weight: 800;">Student Name</h3>
+        <span class="role-badge-chip role-badge-student" style="display: inline-block; margin: 0.4rem 0 1.25rem;">STUDENT</span>
+
+        <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <a href="/my-orders.html" class="btn-primary" style="width: 100%; font-size: 0.88rem; padding: 0.6rem;">
+            📋 View My Orders
+          </a>
+          <button id="btn-profile-logout" class="btn-secondary" style="width: 100%; font-size: 0.88rem; padding: 0.6rem; color: var(--accent-red);">
+            🚪 Sign Out
+          </button>
+        </div>
+      </div>
+
+      <!-- Right: Form Details Card -->
+      <div class="cart-items-card">
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1.25rem;">Personal & Academic Info</h3>
+
+        <form id="profile-edit-form">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="prof-name" class="form-control" required />
+          </div>
+
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label class="form-label">AKTU Roll Number</label>
+              <input type="text" id="prof-roll" class="form-control" readonly style="opacity: 0.8; cursor: not-allowed;" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" id="prof-phone" class="form-control" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">College Email</label>
+            <input type="email" id="prof-email" class="form-control" readonly style="opacity: 0.8; cursor: not-allowed;" />
+          </div>
+
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label class="form-label">Branch / Department</label>
+              <input type="text" id="prof-branch" class="form-control" placeholder="Computer Science & Engineering" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Semester / Year</label>
+              <input type="text" id="prof-year" class="form-control" placeholder="3rd Semester (2nd Year)" />
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" style="margin-top: 0.75rem; padding: 0.75rem 1.5rem;">
+            Save Profile Changes
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="/src/main.tsx"></script>
+  <script type="module" src="/js/app.js"></script>
+  <script type="module">
+    import { requireAuth, updateCurrentProfile, logoutUser } from '/js/auth.js';
+    import { showToast } from '/js/cart.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = requireAuth('/login.html');
+      if (!user) return;
+
+      document.getElementById('profile-display-name').textContent = user.full_name || 'Student';
+      document.getElementById('profile-avatar').textContent = (user.full_name || 'S').charAt(0).toUpperCase();
+
+      document.getElementById('prof-name').value = user.full_name || '';
+      document.getElementById('prof-roll').value = user.roll_number || 'N/A';
+      document.getElementById('prof-phone').value = user.phone || '';
+      document.getElementById('prof-email').value = user.email || '';
+      document.getElementById('prof-branch').value = user.branch || 'B.Tech CSE';
+      document.getElementById('prof-year').value = user.year || '3rd Semester';
+
+      document.getElementById('profile-edit-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const updated = {
+          full_name: document.getElementById('prof-name').value.trim(),
+          phone: document.getElementById('prof-phone').value.trim(),
+          branch: document.getElementById('prof-branch').value.trim(),
+          year: document.getElementById('prof-year').value.trim()
+        };
+
+        updateCurrentProfile(updated);
+        showToast('Profile updated successfully!', 'success');
+        document.getElementById('profile-display-name').textContent = updated.full_name;
+      });
+
+      document.getElementById('btn-profile-logout')?.addEventListener('click', () => {
+        if (confirm('Log out from your student account?')) {
+          logoutUser();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Food Menu – CAMPUS FOOD | College Canteen</title>
+  <meta name="description" content="Browse full canteen food menu with live availability, filter by categories, price, and add to cart." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <style>
+    .menu-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+    }
+    .menu-search-wrapper {
+      flex: 1 1 200px;
+      min-width: 0;
+      position: relative;
+    }
+    .menu-search-wrapper input {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 0.65rem 1rem 0.65rem 2.5rem;
+      color: var(--text-primary);
+      font-size: 0.92rem;
+    }
+    .menu-search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    .cat-pills-container {
+      display: flex;
+      gap: 0.6rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+      scrollbar-width: thin;
+      max-width: 100%;
+    }
+    .cat-pill {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-full);
+      padding: 0.55rem 1.2rem;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+    .cat-pill:hover, .cat-pill.active {
+      background: var(--accent-orange);
+      color: white;
+      border-color: var(--accent-orange);
+      box-shadow: 0 4px 14px rgba(249, 115, 22, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-notice-bar">
+    <div>
+      🎓 <span class="notice-highlight">AKTU B.Tech Web Development Project</span> • College Canteen Counter Window 2
+    </div>
+    <div style="display: flex; gap: 1.25rem;">
+      <span>🕒 Canteen Hours: <strong>8:30 AM – 7:30 PM</strong></span>
+      <span>⚡ Express Token Pickup System</span>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/index.html" class="brand-logo">
+        <div class="brand-icon">🍔</div>
+        <div class="brand-text">
+          <div class="brand-title">CAMPUS <span>FOOD</span></div>
+          <div class="brand-sub">AKTU Canteen Hub</div>
+        </div>
+      </a>
+
+      <ul class="nav-links" id="nav-links-menu">
+        <li class="nav-item"><a href="/index.html">🏠 Home</a></li>
+        <li class="nav-item"><a href="/menu.html" class="active">📜 Canteen Menu</a></li>
+        <li class="nav-item"><a href="/tracking.html">📍 Track Order</a></li>
+        <li class="nav-item"><a href="/my-orders.html">📋 My Orders</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="/cart.html" class="cart-nav-btn" title="View Shopping Cart">
+          🛒
+          <span class="cart-badge" id="nav-cart-badge" style="display: none;">0</span>
+        </a>
+        <div id="nav-auth-area"></div>
+        <button class="mobile-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-wrapper">
+    <!-- Header title -->
+    <div style="margin-bottom: 2rem;">
+      <div class="section-tag">Fresh & Hygienic</div>
+      <h1 style="font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em;">College Canteen Food Menu</h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.35rem;">
+        Order food online, pay via cash or UPI at the counter, and collect quickly with your token.
+      </p>
+    </div>
+
+    <!-- Category Pills Filter -->
+    <div class="cat-pills-container" id="category-filter-tabs">
+      <!-- Populated dynamically by js/menu.js -->
+    </div>
+
+    <!-- Search & Sort Filter Bar -->
+    <div class="menu-filter-bar">
+      <div class="menu-search-wrapper">
+        <span class="menu-search-icon">🔍</span>
+        <input type="text" id="menu-search-input" placeholder="Search by food name or ingredient..." />
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+        <span id="products-count-label" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Loading items...</span>
+        
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <label for="menu-sort-select" style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 600;">Sort By:</label>
+          <select id="menu-sort-select" class="form-control" style="width: auto; padding: 0.45rem 0.8rem; font-size: 0.85rem;">
+            <option value="default">Recommended</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="name-asc">Alphabetical (A-Z)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products-grid" id="menu-products-grid">
+      <!-- Rendered dynamically by js/menu.js -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="brand-logo" style="margin-bottom: 1rem;">
+          <div class="brand-icon">🍔</div>
+          <div class="brand-text">
+            <div class="brand-title">CAMPUS <span>FOOD</span></div>
+            <div class="brand-sub">AKTU Canteen Hub</div>
+          </div>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.6;">
+          Developed as a B.Tech 3rd Semester AKTU Web Development Project.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/menu.html">Menu</a></li>
+          <li><a href="/cart.html">Cart</a></li>
+          <li><a href="/tracking.html">Track Order</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Canteen Desk</h4>
+        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.6;">
+          Canteen Block B • Ground Floor<br>
+          Token Pickup Window 2<br>
+          Open Mon–Sat: 8:30 AM to 7:30 PM
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 CAMPUS FOOD. AKTU Canteen System.</div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.tsx"></script>
+  <script type="module" src="/js/app.js"></script>
+  <script type="module" src="/js/menu.js"></script>
+</body>
+</html>
