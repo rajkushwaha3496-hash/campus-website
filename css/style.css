@@ -1107,6 +1107,15 @@ input, select, textarea {
   color: var(--accent-orange);
 }
 
+.my-orders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 /* Tracking Step Bar */
 .order-tracking-card {
   background: var(--bg-card);
